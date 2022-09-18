@@ -1,9 +1,11 @@
 class Solution {
     public String convert(String s, int numRows) {
         
-        if (numRows == 1) {
+        if ((numRows == 1) || (s.length() == 1)) {
             return s;
         }
+        
+        
         int columns = s.length();
         int rows = numRows;
         
@@ -45,6 +47,9 @@ class Solution {
         for(int y = 0; y < zigzag[x].length; y++) {
             if (zigzag[x][y] != null) {
                 result += zigzag[x][y];
+                if (result.length() == s.length()) {
+                    return result;
+                }
             }
         }
      
