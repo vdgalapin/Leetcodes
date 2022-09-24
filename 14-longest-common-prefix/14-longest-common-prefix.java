@@ -1,35 +1,40 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
         
-        String longest_string = "";
+        if(strs.length <= 1) {return strs[0];}
         
-        // Iterate characters of the first element
-        for(int x = 0; x < strs[0].length(); x++) {
+        
+        // Lets find the shortest string
+        int short_string = 0;
+        for(int x = 0; x < strs.length; x++) {
+            if(strs[short_string].length() > strs[x].length()) {
+                short_string = x;                
+            } 
+        }
+                
+        String result = strs[short_string];
+        
+        // check each element in the list if it contains the shortest string
+        for(int x = 0; x < strs.length; x++) {
             
-            char felem_c = strs[0].charAt(x);
-            
-            // Check each each element
-            for(int y = 1; y < strs.length; y++) {
+            // if it does not then we will shorten the string
+            if(strs[x].indexOf(result) != 0) {
                 
-                // If the longest string length found is equal or greater 
-                //to the lenght of the current string then return it
-                if(longest_string.length() >= strs[y].length() || x >= strs[y].length()) {
-                    return longest_string;
-                }
-                
-                if(felem_c != strs[y].charAt(x)) {
-                    return longest_string;
-                }
-                
-                
+                while(true) {
                     
+                    result = result.substring(0, result.length() - 1);
+                    if(strs[x].indexOf(result) == 0) {
+                        break;
+                    }
+                    
+                    if(result.length() == 0 ) return result;
+                    
+                }
             }
-            
-            longest_string += Character.toString(felem_c);
             
         }
         
-        return longest_string;
+        return result;
         
     }
 }
