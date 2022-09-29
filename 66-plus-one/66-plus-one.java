@@ -1,39 +1,44 @@
 class Solution {
     public int[] plusOne(int[] digits) {
-        int idx = digits.length - 1;
         
-        // if there is no element
-        if(digits.length == 0 ) {
-            digits[0] = 1;
-            return  digits;
-        }
-        
-        int val = 0;
-        do {
-            
-            // element is add 1
-            val = digits[idx] + 1;
-            digits[idx] = val % 10;
-            idx--;
-            
-            // If the val is 10 and the idx is not before 0
-        } while (val == 10 && idx >= 0);
-        
-        // if the last value is still 10 then shift to the right by one
-        if(val == 10) {
-            
-            int[] c_digits = Arrays.copyOf(digits, digits.length + 1);
-                       digits = c_digits;
-          
-            
-            for(int x = digits.length - 2; x >= 0; x--) {
-                digits[x + 1] = digits[x];
+        if(digits.length == 1) {
+            if(digits[0] == 9) {
+                int[] instant_result = new int[2];
+                instant_result[0] = 1;
+                instant_result[1] = 0;
+                return instant_result;
+            } else {
+                digits[0] = digits[0] + 1;
+                return digits;
             }
-            
-            digits[0] = 1;
         }
-            
-        return digits;
-    
+        
+        int plus = 1;
+        for(int x = digits.length - 1; x > 0; x--) {
+            if(digits[x] == 9 && plus == 1) {               
+                digits[x] = (digits[x] + plus) % 10;
+                plus = 1;
+            } else {
+                digits[x] = digits[x] + plus;
+                plus = 0;
+            }
+        }
+      
+        if(plus == 1) {
+            if(digits[0] == 9) {
+                int[] result = new int[digits.length + 1];
+                result[0] = 1;
+                result[1] = 0;
+                for(int x = 2; x < result.length; x++) {
+                    result[x] = digits[x-1];
+                }
+                return result;
+            } else {
+                digits[0] = digits[0] + 1;
+                return digits;
+            }
+        } else {
+            return digits;
+        }   
     }
 }
