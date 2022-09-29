@@ -14,7 +14,6 @@ class Solution {
                 
                 if(result.length() < s.substring(left, right+1).length()) {
                     result = s.substring(left, right+1);
-                    System.out.println(result);
                 }                          
 
                 left--;
@@ -31,7 +30,6 @@ class Solution {
                 
                 if(result.length() < s.substring(left, right+1).length()) {
                     result = s.substring(left, right+1);
-                    System.out.println(result);
                 }                          
 
                 left--;
